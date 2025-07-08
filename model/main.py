@@ -32,36 +32,39 @@ def generate_init_belief(states):
 
 def recognise_character(text):
     response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": f"Identify the name of the character that the user is talking about, give only the name of the character"},
+            {"role": "system", "content": f"You are an NER model. Identify the name of the character that the user is talking about, give only the name of the character and nothing else."},
             {"role": "user", "content": text}
         ],
         max_tokens=1000,
-        temperature=0.2
+        temperature=0.7
     )
     return response.choices[0].message.content
 
 def update_belief(belief, observation, character, prev_action=None):
     response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": f"""
-                                        You are a cognitive model, reasoning about peoples mental states to give 
-                                        advice for navigating a workplace environment following a POMDP structure.
+                                        You are part of a cognitive model, reasoning about peoples mental states in
+                                        workplace environment following a POMDP structure. Your job is to update the belief distribution.
                                         
+                                        Given the user's input as an observation, the current belief, and the previous action, generate a new 
+                                        belief distribution as an array of 2 dictionaries, the 1st mapping the user's mental state to a probability, 
+                                        the 2nd mapping the user's belief of {character}'s mental state to a probability.
+
                                         The current belief distribution is {belief}, where the first dictionary represents
                                         the probability distribution of the user's mental states, and the second distribution 
                                         represents that of the user's belief about {character}'s mental state.
                                         Your previous action or message to the user was {prev_action} if available.
-                                        
-                                        Given the user's input as an observation, the current belief, and the previous action, generate a new 
-                                        belief distribution as an array of 2 dictionaries as before.
+
+                                        Output only the 2D list of the belief, with 2 non-empty disctionaries each with the 28 mental states.
              """},
             {"role": "user", "content": observation}
         ],
         max_tokens=1000,
-        temperature=0.2
+        temperature=0.7
     )
     return response.choices[0].message.content
 
@@ -81,7 +84,7 @@ def generate_action(belief, observation, character):
             {"role": "user", "content": observation}
         ],
         max_tokens=1000,
-        temperature=0.7
+        temperature=0.2
     )
     return response.choices[0].message.content
 
@@ -91,11 +94,10 @@ if __name__ == "__main__":
     while user_input != "end":
         observation = input("User: ")
         belief = generate_init_belief(STATES)
-        print(belief)
         character = recognise_character(observation)
         print(character)
         belief = update_belief(belief, observation, character, action)
         print(belief)
-        action = generate_action(observation, character)
+        action = generate_action(belief, observation, character)
         print(action)
 
