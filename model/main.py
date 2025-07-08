@@ -2,6 +2,7 @@ import os
 import openai
 from dotenv import load_dotenv
 import matplotlib.pyplot as plt
+import numpy as np
 import json
 from pathlib import Path
 
@@ -84,13 +85,36 @@ def generate_action(belief, observation, character):
     )
     return response.choices[0].message.content
 
+#Plot bar graphs for beliefs side by side
+def plot_beliefs(beliefs, character):
+    data1 = list(beliefs[0].values()) # probabilities for User's state
+    data2 = list(beliefs[1].values()) # probabilities for other character's state 
+    x = np.arange(len(EMOTIONS))
+    width = 0.35
+
+    fig, ax = plt.subplots()
+    bars1 = ax.bar(x - width/2, data1, width, label="User's state")
+    bars2 = ax.bar(x + width/2, data2, width, label=f"User's belief about {character}'s state")
+
+    ax.set_xlabel('Mental States')
+    ax.set_ylabel('Probability')
+    ax.set_title('Belief Distribution')
+    ax.set_xticks(x)
+    ax.set_xticklabels(EMOTIONS)
+    ax.legend()
+
+    plt.ylim(0, 1)
+    plt.show()
+
 if __name__ == "__main__":
     action = None
+    character = "default"
     user_input = ""
     while user_input != "end":
         observation = input("User: ")
         beliefs = generate_init_beliefs(STATES)
-        character = recognise_character(observation)
+        if character == "default":
+            character = recognise_character(observation)
         print(character)
 
         context_users_state = f"the probability that the user is that state. The current belief distribution is {beliefs[0]}."
@@ -100,7 +124,9 @@ if __name__ == "__main__":
         belief_character_state = json.loads(update_belief(observation, context_character_state, action)) #belief distribution of the mental state which the user believes the other character is in
        
         beliefs = [belief_user_state, belief_character_state]
-        #Plot belief distributions
+
+        plot_beliefs(beliefs, character)
+
         action = generate_action(beliefs, observation, character)
         print(action)
 
