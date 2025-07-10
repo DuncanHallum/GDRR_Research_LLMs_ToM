@@ -41,7 +41,7 @@ def recognise_character(text):
             {"role": "user", "content": text}
         ],
         max_tokens=1000,
-        temperature=0.7
+        temperature=0.2
     )
     return response.choices[0].message.content
 
@@ -51,7 +51,7 @@ def update_belief(observation, context, prev_action=None):
         messages=[
             {"role": "system", "content": f"""
                                         You are part of a cognitive model, reasoning about peoples mental states in
-                                        workplace environment following a POMDP structure. Your job is to adjust the current belief distribution.
+                                        workplace environment following a POMDP structure. Your job is to adjust the current belief distribution following a Bayesian approach.
                                         
                                         Given the user's input as an observation, the current belief, and the previous action, update the belief distribution to include this new context as a JSON object mapping each of these mental states {EMOTIONS} to {context}
                                         Your previous action or message to the user was {prev_action} if available.
@@ -104,29 +104,34 @@ def plot_beliefs(beliefs, character):
     ax.legend()
 
     plt.ylim(0, 1)
+    plt.xticks(rotation=90)
     plt.show()
 
+
 if __name__ == "__main__":
+    beliefs = generate_init_beliefs(STATES) # uniform distribution
     action = None
     character = "default"
-    user_input = ""
-    while user_input != "end":
+    observation = ""
+    while True:
         observation = input("User: ")
-        beliefs = generate_init_beliefs(STATES)
-        if character == "default":
-            character = recognise_character(observation)
-        print(character)
+        if observation != "end":
+            if character == "default": #only gets character name for the 1st observations
+                character = recognise_character(observation)
+                print(character)
 
-        context_users_state = f"the probability that the user is that state. The current belief distribution is {beliefs[0]}."
-        belief_user_state = json.loads(update_belief(observation, context_users_state, action)) #belief distribution of user's own mental state
+            context_users_state = f"the probability that the user is that state. The current belief distribution is {beliefs[0]}."
+            belief_user_state = json.loads(update_belief(observation, context_users_state, action)) #belief distribution of user's own mental state
 
-        context_character_state = f"the probability of the user thinking that {character} is in that state. The current belief distribution is {beliefs[1]}."
-        belief_character_state = json.loads(update_belief(observation, context_character_state, action)) #belief distribution of the mental state which the user believes the other character is in
-       
-        beliefs = [belief_user_state, belief_character_state]
+            context_character_state = f"the probability of the user thinking that {character} is in that state. The current belief distribution is {beliefs[1]}."
+            belief_character_state = json.loads(update_belief(observation, context_character_state, action)) #belief distribution of the mental state which the user believes the other character is in
+        
+            beliefs = [belief_user_state, belief_character_state]
 
-        plot_beliefs(beliefs, character)
+            plot_beliefs(beliefs, character)
 
-        action = generate_action(beliefs, observation, character)
-        print(action)
+            action = generate_action(beliefs, observation, character)
+            print(action)
+        else:
+            break
 
