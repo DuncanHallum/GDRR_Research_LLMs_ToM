@@ -37,7 +37,7 @@ def recognise_character(text):
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": f"You are a named entity recognotion model. Identify the name of the character that the user is talking about, give only the name of the character and nothing else."},
+            {"role": "system", "content": f"You are a named entity recognotion model. Identify the name of the person that the user is talking about, give only the name of the character and nothing else. This could be 'Coworker' or 'Boss' for example"},
             {"role": "user", "content": text}
         ],
         max_tokens=1000,
@@ -119,7 +119,7 @@ if __name__ == "__main__":
             if character == "default": #only gets character name for the 1st observations
                 character = recognise_character(observation)
                 print(character)
-
+            break
             context_users_state = f"the probability that the user is that state. The current belief distribution is {beliefs[0]}."
             belief_user_state = json.loads(update_belief(observation, context_users_state, action)) #belief distribution of user's own mental state
 
