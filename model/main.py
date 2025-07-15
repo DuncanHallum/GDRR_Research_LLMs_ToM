@@ -35,9 +35,9 @@ def generate_init_beliefs(states):
 
 def recognise_character(text):
     response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": f"You are a named entity recognotion model. Identify the name of the person that the user is talking about, give only the name of the character and nothing else. This could be 'Coworker' or 'Boss' for example"},
+            {"role": "system", "content": f"You are a named entity recognotion model. Identify the name of the person that the user is talking about, give only the name of the character and nothing else. This could be 'Coworker' or 'Boss' for example. If unsure, return 'Coworker'."},
             {"role": "user", "content": text}
         ],
         max_tokens=1000,
@@ -67,7 +67,7 @@ def update_belief(observation, context, prev_action=None):
 
 def generate_action(belief, observation, character):
     response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": f"""
                                         You are a cognitive model, used to give advice on workplace problems and relations with a POMDP structure.
@@ -75,8 +75,8 @@ def generate_action(belief, observation, character):
                                         The current belief distribution of the user's mental state is {belief[0]}.
                                         The current belief distribution of which mental state the user thinks that {character} is in is {belief[1]}.
 
-                                        Given this information, generate an action from the following user message, in the form of giving helpful advice, asking a question to
-                                        better your understand without being too invasive, or give a sympathetic or encouraging response.
+                                        Given this information, generate an action or actions from the following user message, in the form of giving helpful advice, asking a question to
+                                        better your understanding without being too invasive, or give a sympathetic or encouraging response.
              """},
             {"role": "user", "content": observation}
         ],
@@ -119,7 +119,6 @@ if __name__ == "__main__":
             if character == "default": #only gets character name for the 1st observations
                 character = recognise_character(observation)
                 print(character)
-            break
             context_users_state = f"the probability that the user is that state. The current belief distribution is {beliefs[0]}."
             belief_user_state = json.loads(update_belief(observation, context_users_state, action)) #belief distribution of user's own mental state
 
