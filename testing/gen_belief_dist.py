@@ -18,7 +18,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 #Generate belief distribution, where the other entities belief distribution is system's belief of what user think other entity/character's mental state is
 def gen_dist_user_belief_about_character(observations: list):
-    all_beliefs = [] # 2D list, each sublist containing 2 distributions (each the 2 beliefs) as lists
+    all_dists = [] # 2D list, each sublist containing 2 distributions (each the 2 beliefs) as lists
     for observation in observations:
         print("processing")
         character = recognise_character(observation)
@@ -29,7 +29,8 @@ def gen_dist_user_belief_about_character(observations: list):
         character_belief = json.loads(update_belief(observation,
                                     f"the probability of the user thinking that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
                                     ))
-        all_beliefs.append([user_belief.values(), character_belief.values()])
+        all_dists.append([user_belief.values(), character_belief.values()])
+    return all_dists
 
 #Generate belief distribution, where the other entities belief distribution is system's belief of other entitiy/character's mental state
 def gen_dist_system_belief_about_character(observations: list):
