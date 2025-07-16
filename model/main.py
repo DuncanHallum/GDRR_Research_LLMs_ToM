@@ -119,7 +119,7 @@ if __name__ == "__main__":
             if character == "default": #only gets character name for the 1st observations
                 character = recognise_character(observation)
                 print(character)
-            context_users_state = f"the probability that the user is that state. The current belief distribution is {beliefs[0]}."
+            context_users_state = f"the probability that the user is in that state. The current belief distribution is {beliefs[0]}."
             belief_user_state = json.loads(update_belief(observation, context_users_state, action)) #belief distribution of user's own mental state
 
             context_character_state = f"the probability of the user thinking that {character} is in that state. The current belief distribution is {beliefs[1]}."

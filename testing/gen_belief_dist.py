@@ -1,5 +1,4 @@
 import os
-import openai
 from dotenv import load_dotenv
 import numpy as np
 import json
@@ -40,7 +39,7 @@ def gen_dist_system_belief_about_character(observations: list):
         character = recognise_character(observation)
         init_beliefs = generate_init_beliefs(STATES)
         user_belief = json.loads(update_belief(observation,
-                                    f"the probability that the user is that state. The current belief distribution is {init_beliefs[0]}.",
+                                    f"the probability that the user is in that state. The current belief distribution is {init_beliefs[0]}.",
                                     ))
         character_belief = json.loads(update_belief(observation,
                                     f"the probability that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
