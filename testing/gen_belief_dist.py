@@ -73,6 +73,5 @@ if __name__ == "__main__":
     # Case 2: Distributions where other character's dist is system's belief of user's belief of their mental state
     dists = gen_dist_user_belief_about_character(messages_emotions_explicit)
     save_dists_to_file(BASE_PATH/r"testing/files/case_2/explicit_emotions", dists)
-    print("CASE 2: pt 2")
     dists = gen_dist_user_belief_about_character(messages_emotions_implicit)
     save_dists_to_file(BASE_PATH/r"testing/files/case_2/implicit_emotions", dists)
