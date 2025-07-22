@@ -15,44 +15,33 @@ from model.main import generate_init_beliefs, recognise_character, update_belief
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
-#Generate belief distribution, where the other entities belief distribution is system's belief of what user think other entity/character's mental state is
-def gen_dist_user_belief_about_character(observations: list):
-    all_dists = [] # 2D list, each sublist containing 2 distributions (each the 2 beliefs) as lists
+#Generate belief distributions
+def gen_dists(observations: list):
+    all_dists = [] # 2D list, each sublist containing 3 distributions as lists
     for observation in observations:
         print("processing")
         character = recognise_character(observation)
         init_beliefs = generate_init_beliefs(STATES)
-        user_belief = json.loads(update_belief(observation,
+        system_belief_of_user = json.loads(update_belief(observation,
                                     f"the probability that the user is that state. The current belief distribution is {init_beliefs[0]}.",
                                     ))
-        character_belief = json.loads(update_belief(observation,
-                                    f"the probability of the user thinking that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
-                                    ))
-        all_dists.append([user_belief.values(), character_belief.values()])
-    return all_dists
-
-#Generate belief distribution, where the other entities belief distribution is system's belief of other entitiy/character's mental state
-def gen_dist_system_belief_about_character(observations: list):
-    all_dists = [] # 2D list, each sublist containing 2 distributions (each the 2 beliefs) as lists for one message/observation
-    for observation in observations:
-        print("processing")
-        character = recognise_character(observation)
-        init_beliefs = generate_init_beliefs(STATES)
-        user_belief = json.loads(update_belief(observation,
-                                    f"the probability that the user is in that state. The current belief distribution is {init_beliefs[0]}.",
-                                    ))
-        character_belief = json.loads(update_belief(observation,
+        system_belief_of_character = json.loads(update_belief(observation,
                                     f"the probability that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
                                     ))
-        all_dists.append([user_belief.values(), character_belief.values()])
+        system_belief_of_user_belief_of_character = json.loads(update_belief(observation,
+                                    f"the probability of the user believing that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
+                                    ))
+          
+        all_dists.append([system_belief_of_user.values(), system_belief_of_character.values(), system_belief_of_user_belief_of_character.values()])
     return all_dists
 
 def save_dists_to_file(path, dists: list):
     for i in range(len(dists)):
         df = pd.DataFrame({
             "Emotion": EMOTIONS,
-            "Prob_User": dists[i][0],
-            "Prob_Character": dists[i][1]
+            "Prob_System_belief_User": dists[i][0],
+            "Prob_System_belief_Character": dists[i][1],
+            "Prob_System_belief_User_belief_Character": dists[i][2]
         })
         df.to_csv(path/("message_"+str(i+1)+"_belief_dist.csv"), index=False)
     
