@@ -52,6 +52,6 @@ if __name__ == "__main__":
         with open(file, encoding="utf-8") as f:
             messages = f.read().split("\n")
         dists = gen_dists(messages)
-        save_dists_to_file(DISTRIBUTIONS_PATH/str(file)[:-4], dists) #DISTRIBUTIONS_PATH/file (without .txt)
+        save_dists_to_file(DISTRIBUTIONS_PATH/file.stem, dists) #DISTRIBUTIONS_PATH/file (without .txt)
     
     
