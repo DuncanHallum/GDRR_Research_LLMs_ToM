@@ -46,21 +46,12 @@ def save_dists_to_file(path, dists: list):
         df.to_csv(path/("message_"+str(i+1)+"_belief_dist.csv"), index=False)
     
 if __name__ == "__main__":
-    with open(BASE_PATH/r"testing/files/user_inputs/inputs_explicit_emotions.txt", encoding="utf-8") as f_explicit:
-        messages_emotions_explicit = f_explicit.read().split("\n")
-    with open(BASE_PATH/r"testing/files/user_inputs/inputs_implicit_emotions.txt", encoding="utf-8") as f_implicit:
-        messages_emotions_implicit = f_implicit.read().split("\n")
+    MESSAGES_PATH = BASE_PATH/"testing"/"files"/"user_inputs"
+    DISTRIBUTIONS_PATH = BASE_PATH/"testing"/"files"/"distributions"
+    for file in MESSAGES_PATH.iterdir():
+        with open(file, encoding="utf-8") as f:
+            messages = f.read().split("\n")
+        dists = gen_dists(messages)
+        save_dists_to_file(DISTRIBUTIONS_PATH/str(file)[:-4], dists) #DISTRIBUTIONS_PATH/file (without .txt)
     
-    print("CASE 1")
-    # Case 1: Distributions where other character's dist is system's belief of their mental state
-    dists = gen_dist_system_belief_about_character(messages_emotions_explicit)
-    save_dists_to_file(BASE_PATH/r"testing/files/case_1/explicit_emotions", dists)
-    dists = gen_dist_system_belief_about_character(messages_emotions_implicit)
-    save_dists_to_file(BASE_PATH/r"testing/files/case_1/implicit_emotions", dists)
     
-    print("CASE 2")
-    # Case 2: Distributions where other character's dist is system's belief of user's belief of their mental state
-    dists = gen_dist_user_belief_about_character(messages_emotions_explicit)
-    save_dists_to_file(BASE_PATH/r"testing/files/case_2/explicit_emotions", dists)
-    dists = gen_dist_user_belief_about_character(messages_emotions_implicit)
-    save_dists_to_file(BASE_PATH/r"testing/files/case_2/implicit_emotions", dists)
