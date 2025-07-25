@@ -46,7 +46,7 @@ def save_dists_to_file(path, dists: list):
         df.to_csv(path/("message_"+str(i+1)+"_belief_dist.csv"), index=False)
     
 if __name__ == "__main__":
-    MESSAGES_PATH = BASE_PATH/"testing"/"files"/"user_inputs"
+    MESSAGES_PATH = BASE_PATH/"testing"/"files"/"messages"
     DISTRIBUTIONS_PATH = BASE_PATH/"testing"/"files"/"distributions"
     for file in MESSAGES_PATH.iterdir():
         with open(file, encoding="utf-8") as f:
