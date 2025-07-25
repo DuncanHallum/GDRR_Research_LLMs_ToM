@@ -50,7 +50,7 @@ def update_belief(observation, context, prev_action=None):
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": f"""
-                                        You are part of a cognitive model, reasoning about peoples mental states in
+                                        You are part of a cognitive model, reasoning about peoples mental states in a 
                                         workplace environment following a POMDP structure. Your job is to adjust the current belief distribution following a Bayesian approach.
                                         
                                         Given the user's input as an observation, the current belief, and the previous action, update the belief distribution to include this new context as a JSON object mapping each of these mental states {EMOTIONS} to {context}
