@@ -45,7 +45,7 @@ def recognise_character(text):
     )
     return response.choices[0].message.content
 
-def update_belief(observation, context, prev_action=None):
+def update_belief(observation, context, current_belief, prev_action=None):
     response = openai.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -53,7 +53,8 @@ def update_belief(observation, context, prev_action=None):
                                         You are part of a cognitive model, reasoning about peoples mental states in a 
                                         workplace environment following a POMDP structure. Your job is to adjust the current belief distribution following a Bayesian approach.
                                         
-                                        Given the user's input as an observation, the current belief, and the previous action, update the belief distribution to include this new context as a JSON object mapping each of these mental states {EMOTIONS} to {context}
+                                        Given the user's input as an observation, the current belief, and the previous action, update the belief distribution to include this new context as a JSON object mapping each of these mental states {EMOTIONS} to {context}.
+                                        The current belief distribution is {current_belief}.
                                         Your previous action or message to the user was {prev_action} if available.
 
                                         Output only the dictionary mapping each state to a probability.
@@ -119,11 +120,11 @@ if __name__ == "__main__":
             if character == "default": #only gets character name for the 1st observations
                 character = recognise_character(observation)
                 print(character)
-            context_users_state = f"the probability that the user is in that state. The current belief distribution is {beliefs[0]}."
-            belief_user_state = json.loads(update_belief(observation, context_users_state, action)) #belief distribution of user's own mental state
+            context_users_state = f"the probability that the user is in that state."
+            belief_user_state = json.loads(update_belief(observation, context_users_state, beliefs[0], action)) #belief distribution of user's own mental state
 
-            context_character_state = f"the probability of the user thinking that {character} is in that state. The current belief distribution is {beliefs[1]}."
-            belief_character_state = json.loads(update_belief(observation, context_character_state, action)) #belief distribution of the mental state which the user believes the other character is in
+            context_character_state = f"the probability of the user thinking that {character} is in that state."
+            belief_character_state = json.loads(update_belief(observation, context_character_state, beliefs[1], action)) #belief distribution of the mental state which the user believes the other character is in
         
             beliefs = [belief_user_state, belief_character_state]
 
