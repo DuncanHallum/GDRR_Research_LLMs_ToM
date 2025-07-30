@@ -23,13 +23,16 @@ def gen_dists(observations: list):
         character = recognise_character(observation)
         init_beliefs = generate_init_beliefs(STATES)
         system_belief_of_user = json.loads(update_belief(observation,
-                                    f"the probability that the user is that state. The current belief distribution is {init_beliefs[0]}.",
+                                    f"the probability that the user is that state.",
+                                    init_beliefs[0]
                                     ))
         system_belief_of_character = json.loads(update_belief(observation,
-                                    f"the probability that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
+                                    f"the probability that {character} is in that state.",
+                                    init_beliefs[1]
                                     ))
         system_belief_of_user_belief_of_character = json.loads(update_belief(observation,
-                                    f"the probability of the user believing that {character} is in that state. The current belief distribution is {init_beliefs[1]}."
+                                    f"the probability of the user believing that {character} is in that state. The current belief distribution is.",
+                                    init_beliefs[1]
                                     ))
           
         all_dists.append([system_belief_of_user.values(), system_belief_of_character.values(), system_belief_of_user_belief_of_character.values()])
