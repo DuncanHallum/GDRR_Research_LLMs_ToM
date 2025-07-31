@@ -14,11 +14,8 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 # 28 emotions of Go Emotions data set
 EMOTIONS = [
-    "admiration", "amusement", "anger", "annoyance", "approval", "caring",
-    "confusion", "curiosity", "desire", "disappointment", "disapproval",
-    "disgust", "embarrassment", "excitement", "fear", "gratitude", "grief",
-    "joy", "love", "nervousness", "optimism", "pride", "realization",
-    "relief", "remorse", "sadness", "surprise", "neutral"
+    "frustration", "anger", "disappointment", "confusion", "anxiety",
+    "embarrassment", "sadness", "resentment", "relief", "gratitude"
 ]
 
 # State is 2 lists: user's emotion and user's believed emotion of another character
