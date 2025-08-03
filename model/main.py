@@ -53,7 +53,7 @@ def update_belief(observation, context, current_belief, prev_action=None):
                                         You are part of a cognitive model, reasoning about peoples mental states in a 
                                         workplace environment following a POMDP structure. Your job is to adjust the current belief distribution following a Bayesian approach.
                                         
-                                        Given the user's input as an observation, the current belief, and the previous action, update the belief distribution to include this new context as a JSON st mapping each of these mental states {EMOTIONS} to {context}.
+                                        Given the user's input as an observation, the current belief, and the previous action, update the belief distribution to include this new context as a JSON object mapping each of these mental states {EMOTIONS} to {context}.
                                         The current belief distribution is {current_belief}.
                                         Your previous action or message to the user was {prev_action} if available.
 
