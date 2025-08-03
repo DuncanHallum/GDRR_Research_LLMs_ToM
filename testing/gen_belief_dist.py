@@ -26,21 +26,18 @@ def gen_dists(observations: list):
                                     f"the probability that the user is that state.",
                                     init_beliefs[0]
                                     ).strip("```json").strip("```") # remove potential markdown output from LLM
-        print("User:", user_belief)
         system_belief_of_user = json.loads(user_belief) 
 
         character_belief = update_belief(observation,
                                     f"the probability that {character} is in that state.",
                                     init_beliefs[1]
                                     ).strip("```json").strip("```")
-        print("Character:", character_belief)
         system_belief_of_character = json.loads(character_belief)
 
         user_character_belief = update_belief(observation,
                                     f"the probability of the user believing that {character} is in that state. The current belief distribution is.",
                                     init_beliefs[1]
                                     ).strip("```json").strip("```")
-        print("User Character:", user_character_belief)
         system_belief_of_user_belief_of_character = json.loads(user_character_belief)
           
         all_dists.append([system_belief_of_user.values(), system_belief_of_character.values(), system_belief_of_user_belief_of_character.values()])
