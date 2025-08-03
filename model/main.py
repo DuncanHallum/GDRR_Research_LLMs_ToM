@@ -12,7 +12,7 @@ print(BASE_PATH)
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
-# 28 emotions of Go Emotions data set
+# 10 basic emotions
 EMOTIONS = [
     "frustration", "anger", "disappointment", "confusion", "anxiety",
     "embarrassment", "sadness", "resentment", "relief", "gratitude"
