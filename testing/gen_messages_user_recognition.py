@@ -24,18 +24,19 @@ def gen_save_message(emotion, file_path):
                                         Generate 10 messages from someone asking for advice regarding a workplace 
                                         problem involving one other person. The person writing the message should be 
                                         feeling {emotion} for each.
-                                        Output only the messages to be saved to a .txt file, each seperated with a new line, with no markdown formatting.
+                                        Output only the messages to be saved to a .txt file, each on a single line, with no markdown formatting.
             """}
         ],
         max_tokens=1000,
         temperature=0.7
     )
     message =  response.choices[0].message.content
-    with open(file_path/Path("user_"+emotion+".txt"), "w") as fp:
+    with open(file_path/Path("recognise_user_"+emotion+".txt"), "w") as fp:
         fp.write(message)
 
 if __name__ == "__main__":
     MESSAGES_PATH = BASE_PATH/"testing"/"files"/"messages"
     for emotion in EMOTIONS:
         gen_save_message(emotion, MESSAGES_PATH)
+    # had to clean results after
     
