@@ -31,7 +31,7 @@ def gen_save_message(emotion, file_path):
         temperature=0.7
     )
     message =  response.choices[0].message.content
-    with open(file_path/"{emotion}.txt", "w") as fp:
+    with open(file_path/Path("user_"+emotion+".txt"), "w") as fp:
         fp.write(message)
 
 if __name__ == "__main__":
