@@ -32,7 +32,7 @@ def generate_init_beliefs(states):
 
 def recognise_character(text):
     response = openai.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": f"You are a named entity recognotion model. Identify the name of the person that the user is talking about, give only the name of the character and nothing else. This could be 'Coworker' or 'Boss' for example. If unsure, return 'Coworker'."},
             {"role": "user", "content": text}
@@ -44,7 +44,7 @@ def recognise_character(text):
 
 def update_belief(observation, context, current_belief, prev_action=None):
     response = openai.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": f"""
                                         You are part of a cognitive model, reasoning about peoples mental states in a 
@@ -65,7 +65,7 @@ def update_belief(observation, context, current_belief, prev_action=None):
 
 def generate_action(belief, observation, character):
     response = openai.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         messages=[
             {"role": "system", "content": f"""
                                         You are a cognitive model, used to give advice on workplace problems and relations with a POMDP structure.
