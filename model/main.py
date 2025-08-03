@@ -54,7 +54,7 @@ def update_belief(observation, context, current_belief, prev_action=None):
                                         The current belief distribution is {current_belief}.
                                         Your previous action or message to the user was {prev_action} if available.
 
-                                        Output only the dictionary mapping each state to a probability.
+                                        Output only the JSON object mapping each state to a probability.
              """},
             {"role": "user", "content": observation}
         ],
