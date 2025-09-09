@@ -1,0 +1,41 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="28.0.6">
+  <diagram name="Page-1" id="CuLSXZhlYld7HAxwoM3C">
+    <mxGraphModel dx="1025" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="DN8Va0SPmn4Uosj94kH1-1" target="DN8Va0SPmn4Uosj94kH1-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-1" value="LLM generated prompts" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-9" value="import functions" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="DN8Va0SPmn4Uosj94kH1-3" target="DN8Va0SPmn4Uosj94kH1-4" edge="1">
+          <mxGeometry x="-0.04" y="-50" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-3" value="Main.py" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-10" value="generate&amp;nbsp;&lt;div&gt;distributions&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="DN8Va0SPmn4Uosj94kH1-4" target="DN8Va0SPmn4Uosj94kH1-5" edge="1">
+          <mxGeometry y="20" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-4" value="gen_belief_dist.py" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-11" value="generate statistics&lt;div&gt;&amp;nbsp;on distributions&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="DN8Va0SPmn4Uosj94kH1-5" edge="1">
+          <mxGeometry x="-0.005" y="-20" relative="1" as="geometry">
+            <mxPoint x="660" y="290" as="targetPoint" />
+            <mxPoint x="20" y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DN8Va0SPmn4Uosj94kH1-5" value="analysis.ipynb" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="440" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
