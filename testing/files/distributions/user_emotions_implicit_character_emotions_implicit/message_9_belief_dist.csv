@@ -1,0 +1,11 @@
+Emotion,Prob_System_belief_User,Prob_System_belief_Character,Prob_System_belief_User_belief_Character
+frustration,0.25,0.3,0.3
+anger,0.15,0.15,0.1
+disappointment,0.2,0.2,0.2
+confusion,0.15,0.1,0.1
+anxiety,0.1,0.1,0.1
+embarrassment,0.05,0.05,0.05
+sadness,0.05,0.05,0.05
+resentment,0.1,0.05,0.05
+relief,0.02,0.0,0.02
+gratitude,0.03,0.0,0.03
