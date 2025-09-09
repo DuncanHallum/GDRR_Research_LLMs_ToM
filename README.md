@@ -5,30 +5,30 @@ Research Project on LLMs and Theory of Mind for the University of Exeter, throug
 ## User instructions
 
 1. Create and activate virtual environment
-'''sh
+```sh
 python -m venv venv
 .\venv\Scripts\Activate
-'''
+```
 
 2. Install requirements
-'''sh
+```sh
 pip install -r requirements.txt  
-'''
+```
 
 3. Add openai API key to .env
-'''sh
+```sh
 OPENAI_API_KEY="your_api_key"
-'''
+```
 
 5. Setup tests
-'''sh
+```sh
 python testing/gen_belief_dist.py
 python testing/gen_messages_user_recognition.py
-'''
+```
 
 6. Run tests - jupyter notebooks in analysis folder
 
 (Optional) Run system
-'''sh
+```sh
 python model/main.py
-'''
+```
