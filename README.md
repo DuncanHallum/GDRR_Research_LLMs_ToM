@@ -28,7 +28,7 @@ python testing/gen_messages_user_recognition.py
 
 6. Run tests - jupyter notebooks in analysis folder
 
-(Optional) Run system
+7. (Optional) Run system
 ```sh
 python model/main.py
 ```
